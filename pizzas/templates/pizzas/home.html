@@ -3,15 +3,18 @@
 {% load static %}
 
 {% block content %}
-    {% comment %} <h1>home page</h1>
-    
-    {% if user.is_authenticated %}
-        <h2>welcome  {{ user.username }} </h2>
-    {% else %}
-        <h2>welcome guest</h2>       
-    {% endif %}
-      {% endcomment %}
+ 
+      
+      
     <div class="homeImage">
+        <h1>home page</h1>
+    
+        {% if user.is_authenticated %}
+            <h2>welcome  {{ user.username }} </h2>
+        {% else %}
+            <h2>welcome guest</h2>       
+        {% endif %}
+        
         {% if messages %} 
         {% for message in messages %} 
 
@@ -26,6 +29,6 @@
         {% endif %}
 
 </div>  
-    
+
 {% endblock content %}
     
