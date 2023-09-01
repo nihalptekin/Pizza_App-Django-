@@ -1,28 +1,36 @@
 {% extends 'pizzas/base.html' %}
-
-
 {% block content %}
-   <h2>pizza Page</h2> 
-
+<div class="d-flex justify-content-around flex-wrap pt-5">
+    {% for pizza in pizzas %}
+    <div class="card m-4 shadow" style="max-width: 720px;">
+        <div class="row g-0">
+            <div class="col-md-4">
+                {% if pizza.image %}
+                <img src="{{ pizza.image.url }}" class="img-fluid rounded-start" style="height: 100%;">
+                {% endif %}
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{ pizza.name }}</h5>
+                    <p class="card-text">
+                        <ul>
+                            <li>
+                                {{ pizza.toppings.all | join:', ' }}
+                            </li>
+                            <li>
+                                <strong> {{ pizza.price }} $</strong>
+                            </li>
+                        </ul>
+                    </p>
    
-   {% for pizza in pizzas %}
-   <div class="card mb-3" style="max-width: 540px;">
-    <div class="row g-0">
-      <div class="col-md-4">
-        <img src= "{{ pizza.image.url }}" class="img-fluid rounded-start" alt="...">
-      </div>
-      <div class="col-md-8">
-        <div class="card-body">
-          <h5 class="card-title"> {{ pizza }} </h5>
-          <p class="card-text"> {{ pizza.price }} </p>
-          {% comment %} <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p> {% endcomment %}
+                
+                    {% if user.is_authenticated %}
+                    <p class="card-text"><a href=" {% url 'order' pizza.id %} "><button class="btn btn-warning ms-1"> Go to Order Page</button></a></p>
+                {% endif %}
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-    
-   {% endfor %}
-    
-
+    {% endfor %}
+</div>
 {% endblock content %}
-    
